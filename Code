@@ -1,0 +1,66 @@
+import random      
+def game():
+    try:
+        print('Welcome to Mastermind')
+        print('red=1\nyellow=2\ngreen=3\nblue=4\nwhite=5\nblack=6')
+        print('-'*30)
+        player_1=random.sample(range(1,6),4)
+        #print(player_1)
+        
+        for y in range(1,12):
+            if y <=10:
+             print('Chance no. ',y)
+             print('-'*30)
+            if y>10:
+                print('10 rounds completed ')
+                print('Code was ',player_1)
+                restart=input('Do you want to continue playing?[y/n] ')
+                if restart.lower()=='y':
+                  game()
+                else:
+                  print('Goodbye')
+                  break
+            guess=[0,0,0,0]
+            redpegs=0
+            whitepegs=0
+            guess[0]=int(input('Enter color between 1-6 '))
+            guess[1]=int(input('Enter color between 1-6 '))
+            guess[2]=int(input('Enter color between 1-6 '))
+            guess[3]=int(input('Enter color between 1-6 '))
+            
+            try:
+                if guess[0] > 6 or guess[1] > 6 or guess[2] > 6 or guess[3] > 6:
+                    print('Please enter values between 1-6 ')
+                    restart=input('Do you want to continue playing?[y/n] ')
+                    if restart.lower()=='y':
+                      game()
+                    else:
+                      print('Goodbye')
+                      break
+                else:
+                    for x in range(4):
+                        if guess[x]==player_1[x]:
+                            redpegs+=1
+                            continue
+                        if guess[x] in player_1:
+                            whitepegs+=1
+                            continue
+                    print('-'*30)
+                    print('red pegs',redpegs)
+                    print('white pegs ',whitepegs) 
+                    print('-'*30)
+                    if redpegs==4:
+                        print('You won')
+                        restart=input('Do you want to continue playing?[y/n] ')
+                        if restart.lower()=='y':
+                          game()
+                        else:
+                          print('Goodbye')
+                          break
+            except Exception as e:
+                print('Enter numeric value',e)
+                break
+    except Exception as e:
+        print('Error is',e)
+                   
+game()
